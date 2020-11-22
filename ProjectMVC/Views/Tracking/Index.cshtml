@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+     var tracking = ViewBag.tracking as List<ProjectMVC.Models.Order>;
+}
+     <section class="tracking_box_area section_gap">
+          <div class="container">
+               <div class="tracking_box_inner">
+                    <h3>
+                         LỊCH SỬ MUA HÀNG
+                    </h3>
+                    @if (tracking.Count == 0)
+                    {
+                         <br />
+                         <br />
+                         <div class="alert alert-info" style="text-align:center">Bạn chưa có đơn hàng nào</div>
+                    }
+                    else
+                    {
+
+
+
+                    <div class="col col-xl-12">
+                         <div class="table-responsive">
+                              <table class="table table-striped">
+                                   <thead>
+                                        <tr>
+                                             <th>Số thứ tự</th>
+                                             <th>Mã đơn hàng</th>
+                                             <th>Họ và tên</th>
+                                             <th>Nơi nhận hàng</th>
+                                             <th>Số điện thoại</th>
+                                             <th>Ngày đặt</th>
+                                             <th>Trạng thái</th>
+                                             <th>Hành động</th>
+                                        </tr>
+                                   </thead>
+                                  
+                                   <tbody>
+                                        @for (var i = 0; i < tracking.Count; i++)
+                                        {
+                                        <tr>
+                                             <td>@i</td>
+                                             <td>@tracking[i].ID_Order</td>
+                                             <td>@tracking[i].Name</td>
+                                             <td>@tracking[i].Phone</td>
+                                             <td>@tracking[i].Address_Detail @tracking[i].Address_District @tracking[i].Address_Province </td>
+                                             <td>@tracking[i].Date_Order</td>
+                                             @if (@tracking[i].Status == 0)
+                                             {
+                                                  <td style="color:red">Đang xác nhận</td>
+                                             }
+                                             else if (@tracking[i].Status == -1)
+                                             {
+                                                  <td style="color:red">Đã hủy</td>
+                                             }
+                                             else if (@tracking[i].Status == 1)
+                                             {
+                                                  <td style="color:red">Đã xác nhận</td>
+                                             }
+                                             else if (@tracking[i].Status == 2)
+                                             {
+                                                  <td style="color:red">Thành công</td>
+                                             }
+                                        <td>
+                                             <a class="btn btn-info" href="/Tracking/Order?id=@tracking[i].ID_Order" style="color:white">Chi tiết</a>
+                                             @if (@tracking[i].Status == 0)
+                                             {
+                                                  <a class="btn btn-secondary" href="/Tracking/cancelOrder?id=@tracking[i].ID_Order" style="color:white">Hủy</a>
+                                             }
+                                        </td>
+                                        </tr>
+                                        }
+                                   </tbody>
+                              </table>
+                         </div>
+                    </div>
+                    }
+                    <!--Table-->
+                    
+               </div>
+          </div>
+     </section>
+

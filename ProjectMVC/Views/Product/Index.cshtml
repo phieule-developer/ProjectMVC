@@ -1,0 +1,287 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+     var product = ViewBag.product as ProjectMVC.Models.Product;
+     var images = ViewBag.images as List<ProjectMVC.Models.Image>;
+     var comment = ViewBag.comment as List<ProjectMVC.Models.Comment>;
+}
+<div class="product_image_area">
+     <div class="container">
+          <div class="row s_product_inner">
+               <div class="col-lg-6">
+                    <div class="s_product_img">
+                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                              <ol class="carousel-indicators">
+                                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                                        <img src="@images[0].URL" class="image_product" width="60px" height="60px" alt="" />
+                                   </li>
+                                   @for (var item = 1; item < images.Count; item++)
+                                   {
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="@item">
+                                             <img src="@images[item].URL" width="60px" height="60px" alt="" />
+                                        </li>
+                                   }
+
+
+                              </ol>
+                              <div class="carousel-inner">
+                                   <div class="carousel-item active">
+                                        <img class="d-block w-100" src="@images[0].URL" alt="" />
+                                   </div>
+                                   @for (var item = 1; item < images.Count; item++)
+                                   {
+                                        <div class="carousel-item">
+                                             <img class="d-block w-100" src="@images[item].URL" alt="" />
+                                        </div>
+                                   }
+
+
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <div class="col-lg-5 offset-lg-1">
+                    <div class="s_product_text">
+                         <span class="id_product" style="display:none">@product.ID_Product</span>
+                         <h3 class="name_product">@product.Name_Product</h3>
+                         <h2><span class="price_product"> @product.Current_Price</span><span>&emsp; VND</span></h2>
+                         <ul class="list">
+                              <li>
+                                   <a href="#"> <span>Trạng thái</span> : Còn hàng</a>
+                              </li>
+                              <li>
+                                   <div data_size="" class="colorProduct">
+                                        <div>Kích cỡ :</div>
+                                        <br>
+                                        <button style="padding: 10px 10px;" class="btn btn-info size">M</button>
+                                        <button style="padding: 10px 10px;" class="btn btn-info size">L</button>
+                                        <button style="padding: 10px 10px;" class="btn btn-info size">XL</button>
+                                        <button style="padding: 10px 10px;" class="btn btn-info size">XXL</button>
+                                   </div>
+                              </li>
+                              <li>
+                                   <br>
+                                   <div>
+                                        Màu sắc
+                                        <div>
+                                             <select class="color_product custom-select" style="width:30%">
+                                                  <option value="-1">Lựa chọn</option>
+                                                  <option value="Xanh">Xanh</option>
+                                                  <option value="Đỏ">Đỏ</option>
+                                                  <option value="Trắng">Trắng</option>
+                                             </select>
+                                        </div>
+                                   </div>
+                              </li>
+                         </ul>
+                         <br>
+                         <br>
+                         <p>
+                              @product.Description_Product
+                         </p>
+                         <div class="product_count">
+                              <label for="qty">Số lượng:</label>
+                              <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                                     class="input-text qty amount_product" />
+                              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                      class="increase items-count" type="button">
+                                   <i class="lnr lnr-chevron-up"></i>
+                              </button>
+                              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
+                                      class="reduced items-count" type="button">
+                                   <i class="lnr lnr-chevron-down"></i>
+                              </button>
+                         </div>
+                         <div class="card_area">
+                              <btn class="main_btn add_to_cart">Thêm vào giỏ hàng</btn>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+<!--================End Single Product Area =================-->
+<!--================Product Description Area =================-->
+<section class="product_description_area">
+     <div class="container">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+               <li class="nav-item">
+                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                       aria-selected="true">Miêu tả</a>
+               </li>
+               <li class="nav-item active">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                       aria-selected="false">Bình luận</a>
+               </li>
+               <!-- <li class="nav-item">
+                 <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+                   aria-selected="false">Đánh giá</a>
+               </li> -->
+          </ul>
+          <div class="tab-content" id="myTabContent">
+               <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <p>
+                         Đây là sản phẩm tốt nhé mọi người
+                    </p>
+                    <p>
+                         Qúa tuyệt vời nhá
+                    </p>
+               </div>
+
+               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="row">
+                         <div class="col-lg-6">
+                              @if (comment.Count > 0)
+                              {
+                                   foreach (var co in comment)
+                                   {
+
+                                        <div class="comment_list">
+                                             <div class="review_item">
+                                                  <div class="media">
+                                                       <div class="media-body">
+                                                            <h4>@co.Name</h4>
+                                                            <h5>@co.Date_Comment</h5>
+                                                       </div>
+                                                 </div>
+                                                  <div>
+                                                       @co.Content_Comment
+                                                  </div>
+                                             </div>
+                                        </div>
+                                        <br />
+                                        <br />
+
+                                   }
+                              }
+
+                              else
+                              {
+                                   <div class="col-lg-6">
+                                        <p>Chưa có bình luận nào</p>
+                                   </div>
+
+                              }
+
+                         </div>
+
+
+                         <div class="col-lg-6">
+                              <div class="review_box">
+                                   <br />
+                                   <br />
+                                   <br />
+                                   <h4>Viết bình luận</h4>
+                                   <form class="row contact_form" action="/Product/Comment" method="post" id="contactForm" novalidate="novalidate">
+
+                                        <div class="col-md-12">
+                                             <div class="form-group">
+                                                  <textarea class="form-control" name="message" id="message" rows="1"
+                                                            placeholder="Nội dung bình luận"></textarea>
+                                             </div>
+                                             <div class="form-group">
+                                                  <input class="form-control" name="ID_Product" value="@product.ID_Product" style="display:none" />
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 text-right">
+                                             <button type="submit" value="submit" class="btn submit_btn">
+                                                  Bình luận
+                                             </button>
+                                        </div>
+                                   </form>
+                              </div>
+                         </div>
+
+                    </div>
+               </div>
+          </div>
+     </div>
+</section>
+@section myscript{
+     <script src="~/Content/js/toastr.js"></script>
+     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>*@
+     <script>
+          $(document).ready(function () {
+               $(".size").click(function () {
+                    $(".size").attr("class", "btn btn-info size");
+                    $(this).attr("class", "btn btn-danger size");
+                    $(".colorProduct").attr("data_size", $(this).html())
+               })
+               $(".add_to_cart").click(function () { // thêm vào giỏ hàng
+
+                    if ($(".colorProduct").attr("data_size") == "" || $(".color_product").val() == "-1") {
+                         alert("Bạn vui lòng chọn màu sắc và sản phẩm");
+                    }
+                    else {
+
+                         var id = Number($(".id_product").html());
+                         var name = $(".name_product").html();
+                         var size = $(".colorProduct").attr("data_size");
+                         var color = $(".color_product").val();
+                         var amount = Number($(".amount_product").val());
+                         var url = $(".image_product").attr("src");
+                         var price = $(".price_product").html();
+                         // kiểm tra số lượng sản phẩm
+
+                         var cc = JSON.parse(localStorage.getItem("cart"));
+                         var amountCheck = amount;
+                        
+                         for (var i in cc) {
+                              if (cc[i].id == id && cc[i].size == size && cc[i].color == color) {
+                                   amountCheck += cc[i].amount;
+                              }
+                         }
+                        
+                         $.ajax({
+                              url: "/Product/CheckAmount?id=" + id + "&size=" + size + "&color=" + color + "&amount=" + amountCheck,
+                              type: "GET",
+                              success: function (data) {
+                                   if (data == false) {
+                                        alert("Số lượng bạn mua hiện tại đã lớn hơn số lượng hàng trong kho");
+                                   }
+                                   else {
+                                         toastr.info('Thêm vào giỏ hàng thành công ^^^')
+                                        var data = {
+                                             id: id,
+                                             name: name,
+                                             size: size,
+                                             color: color,
+                                             amount: amount,
+                                             url: url,
+                                             price: price
+                                        }
+
+                                        var cart = JSON.parse(localStorage.getItem("cart"));
+
+                                        if (cart == null) {
+                                             cart = []
+                                             cart.push(data);
+                                             localStorage.setItem("cart", JSON.stringify(cart));
+                                        }
+                                        else {
+                                             for (var i in cart) {
+                                                  if (cart[i].id == id && cart[i].size == size && cart[i].color == color) {
+
+                                                       cart[i].amount += Number(amount);
+                                                       localStorage.setItem("cart", JSON.stringify(cart));
+                                                       return null;
+                                                  }
+                                             }
+                                             cart.push(data);
+                                             localStorage.setItem("cart", JSON.stringify(cart));
+                                        }
+                                        $(".badge-danger").html(cart.length);
+                                       
+                                   }
+                              }
+                         })
+
+                    }
+               })
+          })
+     </script>
+}
+

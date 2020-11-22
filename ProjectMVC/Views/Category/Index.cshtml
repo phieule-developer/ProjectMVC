@@ -1,0 +1,237 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+     var productList = ViewBag.productList as List<ProjectMVC.SubModels.Product>;
+}
+<section class="cat_product_area section_gap">
+     <div class="container">
+          <div class="row flex-row-reverse">
+               <div class="col-lg-9">
+                    <div class="product_top_bar">
+                         <div class="left_dorp">
+                              <select class="sorting">
+                                   <option value=-1>Sắp xếp: </option>
+                                   <option value=1>Tăng dần theo giá</option>
+                                   <option value=2>Giảm dần theo giá</option>
+                              </select>
+
+                         </div>
+                         
+                    </div>
+                    <div class="latest_product_inner">
+                         <div class="row product_test">
+                              @{ foreach (var item in productList)
+                                   {
+                                        <div class="col-lg-4 col-md-6">
+                                             <div class="single-product">
+                                                  <div class="product-img">
+                                                       <img class="card-img" src="@item.Image" alt="" />
+                                                       <div class="p_icon">
+                                                            <a href="/Product/Index?id=@item.ID_Product">
+                                                                 <i class="ti-eye"></i>
+                                                            </a>
+
+                                                       </div>
+                                                  </div>
+                                                  <div class="product-btm">
+                                                       <a href="/Product/Index?id=@item.ID_Product" class="d-block">
+                                                            <h4>@item.Name_Product</h4>
+                                                       </a>
+                                                       <div class="mt-3">
+                                                            <span class="mr-4">@item.Current_Price</span>
+                                                       </div>
+                                                  </div>
+                                             </div>
+                                        </div>}
+                              }
+
+                         </div>
+                    </div>
+               </div>
+
+               <div class="col-lg-3">
+                    <div class="left_sidebar_area">
+                         <aside class="left_widgets p_filter_widgets">
+                              <div class="l_w_title">
+                                   <h3>Danh mục sản phẩm</h3>
+                              </div>
+                              <div class="widgets_inner">
+                                   <ul class="list category">
+                                        <li>
+                                             <!-- Default unchecked -->
+                                             <div class="custom-control custom-checkbox">
+                                                  <input type="checkbox" class="custom-control-input" value=1 id="Unchecked1">
+                                                  <label class="custom-control-label" for="Unchecked1">Áo thun nam</label>
+                                             </div>
+                                             <!-- Default unchecked -->
+                                             <div class="custom-control custom-checkbox">
+                                                  <input type="checkbox" class="custom-control-input" value=3 id="Unchecked2">
+                                                  <label class="custom-control-label" for="Unchecked2">Áo sơ mi nam</label>
+                                             </div>
+                                        </li>
+
+                                   </ul>
+                              </div>
+                         </aside>
+                    </div>
+               </div>
+          </div>
+
+     </div>
+     <br />
+     <br />
+     @*<div class="row">
+          <div class="col col-lg-6">
+          </div>
+          <div class="col col-lg-6">
+               <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Trước</a></li>
+                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Sau</a></li>
+               </ul>
+          </div>
+     </div>*@
+</section>
+@section myscript{
+   
+     <script>
+          $(document).ready(function () {
+
+               $(".searchProduct").change(function () {
+                    var text = $(this).val();
+
+                    $.ajax({
+                         url: "/Category/search?text=" + text,
+                         type: "get",
+                         success: function (data) {
+                              getData(data);
+                         }
+                    })
+               });
+
+               $(".sorting").change(function () {
+                    var sort = $(this).val();
+                    //sort = 1 là tăng dần, sort = 2 là giảm dần
+                    var url;
+
+                    var category_1 = $("#Unchecked1").prop("checked")
+                    var category_2 = $("#Unchecked2").prop("checked")
+
+                    var category_id;
+
+                    if (category_1 == true && category_2 == false) {
+                         category_id = 1; // lọc theo áo thun nam
+                    }
+                    else if (category_1 == false && category_2 == true) {
+                         category_id = 3; // lọc theo áo sơ mi nam
+                    }
+                         if (sort == 1) // sắp xếp tăng dần 
+                         {
+                              if (category_id != null)
+                                   url = "/Category/findAscendCategory?category_id=" + category_id;
+                              else
+                                   url ="/Category/acsendCategoryMan"
+                         }
+                         else if (sort == 2) // sắp xếp giảm dần
+                         {
+                              if (category_id != null)
+                                   url = "/Category/findDesendCategory?category_id=" + category_id;
+                              else
+                                   url="/Category/descendCategoryMan"
+                         }
+                         else {
+                              url = "/Category/findCategoryMan?category_id=" + category_id;
+                         }
+
+                         $.ajax({
+                              url: url,
+                              type: "GET",
+                              success: function (data) {
+
+                                   getData(data);
+                              }
+
+                         })
+                    
+
+
+               })
+
+
+
+               $(".custom-control-input").click(function () {
+                    $(".custom-control-input").not(this).prop("checked", false);
+                    var url;
+
+                    if ($("#Unchecked1").prop("checked") == false && $("#Unchecked2").prop("checked") == false) {
+                         url = "/Category/Category?sex=" + true;
+                    }
+                    else {
+                          if ($(this).prop("checked") == true) {
+
+
+
+                               var category_id = $(this).val();
+
+                               var sort = $(".sorting").val();
+
+                               if (sort == 1) {
+                                    url = "/Category/findAscendCategory?category_id=" + category_id
+                               }
+                               else if (sort == 2) {
+                                    url = "/Category/findDesendCategory?category_id=" + category_id;
+                               }
+                               else {
+                                    url = "/Category/findCategoryMan?category_id=" + category_id;
+                               }
+
+                          }
+                         
+                    }
+                    $.ajax({
+                              url: url,
+                              type: "GET",
+                              success: function (data) {
+                                   getData(data);
+                              }
+                         })
+               })
+
+
+               function getData(data) {
+                    $(".product_test").html("");
+                    data.map(function (d) {
+
+                         $(".product_test").append(`<div class="col-lg-4 col-md-6">
+                                                                      <div class="single-product">
+                                                                           <div class="product-img">
+                                                                                <img class="card-img" src=${d.Image} alt="" />
+                                                                                <div class="p_icon">
+                                                                                     <a href="/Product/Index?id=${d.ID_Product}">
+                                                                                          <i class="ti-eye"></i>
+                                                                                     </a>
+
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="product-btm">
+                                                                               <a href="/Product/Index?id=${d.ID_Product}" class="d-block">
+                                                                                     <h4>${d.Name_Product}</h4>
+                                                                                </a>
+                                                                                <div class="mt-3">
+                                                                                     <span class="mr-4">${d.Price}</span>
+                                                                                </div>
+                                                                           </div>
+                                                                      </div>
+                                                                 </div>
+               `)
+                    })
+               }
+          })
+     </script>
+}
+
+

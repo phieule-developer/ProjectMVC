@@ -1,0 +1,72 @@
+﻿
+@{
+     ViewBag.Title = "Order";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+     var order = ViewBag.order as List<ProjectMVC.SubModels.OrderDetail>;
+}
+<section class="tracking_box_area section_gap">
+     <div class="container">
+          <div class="tracking_box_inner">
+
+               @if (order != null)
+               {
+                    <h3>
+                         CHI TIẾT ĐƠN HÀNG
+                    </h3>
+                    if (order.Count == 0)
+                    {
+                         <br />
+                         <br />
+                         <div class="alert alert-info" style="text-align:center">Bạn chưa có đơn hàng nào</div>
+                    }
+                    else
+                    {
+                         <div class="col col-xl-12">
+                              <div class="table-responsive">
+                                   <table class="table table-striped">
+                                        <thead>
+                                             <tr>
+                                                  <th>Số thứ tự</th>
+                                                  <th>Tên sản phẩm</th>
+                                                  <th>Màu sắc</th>
+                                                  <th>Kích thước</th>
+                                                  <th>Số lượng</th>
+                                                  <th>Giá tiền</th>
+                                                  <th>Thành tiền</th>
+
+                                             </tr>
+                                        </thead>
+
+                                        <tbody>
+                                             @for (var i = 0; i < order.Count; i++)
+                                             {
+                                                  <tr>
+                                                       <td>@(i + 1)</td>
+                                                       <td>@order[i].NameProduct</td>
+                                                       <td>@order[i].Color</td>
+                                                       <td>@order[i].Size </td>
+                                                       <td>@order[i].Amount</td>
+                                                       <td>@order[i].Price</td>
+                                                       <td>@(order[i].Price * order[i].Amount)</td>
+                                                  </tr>
+                                             }
+                                        </tbody>
+                                   </table>
+                              </div>
+                         </div>
+                    }
+               }
+               else
+               {
+                    <h3>
+                         <div class="alert alert-info" style="text-align:center">Đơn hàng không tồn tại hoặc không phải của bạn</div>
+                    </h3>
+               }
+          </div>
+     </div>
+</section>
+
+
+

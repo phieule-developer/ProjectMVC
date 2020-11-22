@@ -1,0 +1,180 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="cart_area">
+     <div class="container">
+          <div class="cart_inner">
+               <div class="table-responsive">
+                    <table class="table">
+                         <thead class="headd">
+                              <tr>
+                                   <th scope="col">Sản phẩm</th>
+                                   <th scope="col">Giá</th>
+                                   <th scope="col">Màu sắc</th>
+                                   <th scope="col">Kích cỡ</th>
+                                   <th scope="col">Số lượng</th>
+                                   <th scope="col">Tổng tiền</th>
+                                   <th scope="col">Hành động</th>
+                              </tr>
+                         </thead>
+                         <tbody class="bodyy">
+                         </tbody>
+                    </table>
+               </div>
+
+          </div>
+
+     </div>
+</section>
+@section myscript{
+
+     <script>
+          $(document).ready(function () {
+               var cart = JSON.parse(localStorage.getItem("cart"));
+               if (cart == null || cart.length == 0) {
+                    $(".cart_inner").html(`
+                              <div class="alert alert-primary" role="alert">
+                                   Giỏ hàng hiện tại đang trống ^^^^
+                              </div>
+                              <div class="checkout_btn_inner">
+                                   <a class="main_btn" href="/Home/Index">Tiếp tục mua sắm</a>
+                              </div>`
+                    )
+               }
+               else {
+                    var total = 0;
+                    for (var i in cart) {
+                         total += Number(cart[i].amount) * Number(cart[i].price);
+                         $(".bodyy").append(`
+               <tr>
+                                                  <td>
+                                                       <div class="media">
+                                                            <div class="d-flex">
+                                                                 <img height="147px" width="140px" src="${cart[i].url}" alt="" />
+                                                            </div>
+                                                            <div class="media-body">
+                                                                 <p>${cart[i].name}</p>
+                                                            </div>
+                                                            <div class="id_product" style="display:none">
+                                                                 ${cart[i].id}
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td>
+                                                       <h5 class="price">${cart[i].price}</h5>
+                                                  </td>
+                                                  <td>
+                                                       <h5 class="color">${cart[i].color}</h5>
+                                                  </td>
+                                                  <td>
+                                                       <h5 class="size">${cart[i].size}</h5>
+                                                  </td>
+                                                  <td>
+                                                       <div class="product_count">
+                                                            <input  type="Number" name="qty" min=1 max=12 value="${cart[i].amount}" class="input-text qty" />
+
+                                                       </div>
+                                                  </td>
+                                                  <td>
+                                                       <h5 class="total_item">${Number(cart[i].amount) * Number(cart[i].price)}</h5>
+                                                  </td>
+                                                  <td>
+                                                        <button class="btn btn-danger delete">Xóa
+                                                        </button>
+                                                  </td>
+                                             </tr>
+               `)
+                    }
+                    $(".bodyy").append(`
+               <tr>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td>
+                                                       <h5>Thành tiền</h5>
+                                                  </td>
+                                                  <td>
+                                                       <h5 class="total">${total}</h5>
+                                                  </td>
+                                             </tr>
+               `)
+                    $(".bodyy").append(`
+               <tr class="out_button_area">
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td>
+                                                       <div class="checkout_btn_inner">
+                                                            <a class="gray_btn" href="/Home/Index">Tiếp tục mua sắm</a>
+                                                            <a class="main_btn" href="/CheckOut/Index">Tiến hành thanh toán</a>
+                                                       </div>
+                                                  </td>
+                                             </tr>
+               `)
+               }
+
+               $(".qty").click(function () {    // chỉnh sửa số lượng giỏ hàng
+                    var id = $(this).parent().parent().parent().children().children().children(".id_product").html();
+                    var color = $(this).parent().parent().parent().children().children(".color").html();
+                    var size = $(this).parent().parent().parent().children().children(".size").html();
+
+                    var amount = $(this).parent().parent().children().children(".qty").val();
+                    var price = $(this).parent().parent().parent().children().children(".price").html();
+                                   var cart = JSON.parse(localStorage.getItem("cart"));
+                                   console.log($(this).val())
+                                   for (var i in cart) {
+                                        if (cart[i].id == Number(id) && cart[i].color == color && cart[i].size == size) {
+                                             
+                                             cart[i].amount = Number($(this).val());
+                                             localStorage.setItem("cart", JSON.stringify(cart));
+                                        }
+                                   }
+
+                                   var cart = JSON.parse(localStorage.getItem("cart"));
+                                   var total = 0;
+                                   for (var i in cart) {
+                                        total += Number(cart[i].amount) * Number(cart[i].price);
+
+                                   }
+                                   $(".total").html(total);
+
+
+
+                                   $(this).parent().parent().parent().children().children(".total_item").html(Number(price) * Number(amount));
+                              
+               })
+               $(".delete").click(function () {
+                    var id = Number($(this).parent().parent().children().children().children(".id_product").html());
+                    var color = $(this).parent().parent().children().children(".color").html();
+                    var size = $(this).parent().parent().children().children(".size").html();
+
+                    var cart = JSON.parse(localStorage.getItem("cart"));
+
+                    for (var i in cart) {
+                         if (Number(cart[i].id) == id && cart[i].color == color && cart[i].size == size) {
+                              cart.splice(i, 1);
+                              localStorage.setItem("cart", JSON.stringify(cart));
+
+                         }
+                    }
+                    window.location.href = "https://localhost:44334/Cart/Index";
+               })
+
+
+
+
+
+
+
+
+          })
+     </script>
+
+}

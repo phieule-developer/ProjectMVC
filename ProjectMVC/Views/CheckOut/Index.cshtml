@@ -1,0 +1,160 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+     var province = ViewBag.province as List<ProjectMVC.Models.Province>;
+}
+<section class="checkout_area section_gap">
+     <div class="container">
+
+          <div class="billing_details">
+               <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-5">
+                         <h3>CHI TIẾT HÓA ĐƠN</h3>
+                         <form class="row contact_form" action="/CheckOut/Payment" method="post" novalidate="novalidate">
+                              <div class="col-md-10 form-group p_star">
+                                   <input placeholder="Tên" type="text" class="form-control" name="Name" required/>
+                              </div>
+                              <div class="col-md-10 form-group p_star">
+                                   <input placeholder="Số điện thoại" type="text" class="form-control"  name="Phone" required />
+                              </div>
+                              <div class="col-md-10 form-group p_star">
+                                   <input type="text" class="form-control" name="Email" placeholder="Email" required/>
+                              </div>
+                              <div style="display:none;" class="col-md-10 form-group p_star">
+                                   <input type="text" class="form-control" id="cart" name="cart" required />
+                              </div>
+                              <div class="col-md-10 form-group p_star">
+                                   <select id="province_select" name="province_id" class="country_select browser-default custom-select" required>
+                                        <option value="0">Tỉnh/Thành phố</option>
+                                        @foreach (var item in province)
+                                        {
+                                             <option value="@item.ID_Province">@item.Name_Province</option>
+                                        }
+                                   </select>
+                              </div>
+                              <div class="col-md-10 form-group p_star">
+                                   <select id="district_select" class="country_select browser-default custom-select" name="Address_District" required>
+                                        <option value=0> Quận/Huyện/Thị xã</option>
+
+                                   </select>
+                              </div>
+                              <div class="col-md-10 form-group">
+                                   <input class="form-control" name="Address_Detail" id="detail" rows="1"
+                                          placeholder="Chi tiết" required/>
+                              </div>
+                              <div class="col-md-10 form-group">
+                                   <textarea class="form-control" name="Note" id="message" rows="1"
+                                             placeholder="Chú thích cho đơn hàng"></textarea>
+                              </div>
+                              <div class="col-md-10 form-group">
+                                   <button class="form-control" style="display:none;" type="submit" name="Detail" id="send" rows="1"></button>
+                              </div>
+                         </form>
+                    </div>
+                    <div class="col-lg-6">
+                         <div class="order_box">
+                              <h2>Đơn hàng của bạn</h2>
+                              <ul class="list">
+                                   <li>
+                                        <a href="#">
+                                             Sản phẩm
+                                             <span>Tổng tiền</span>
+                                        </a>
+                                   </li>
+                                   <li class="list_product">
+                                        
+                                   </li>
+                              </ul>
+                              <ul class="list list_2">
+                                   <li>
+                                        <a href="#">
+                                             Tổng tiền
+                                             <span class="total">2160.00</span>
+                                        </a>
+                                   </li>
+                              </ul>
+                              <div class="payment_item active">
+                                   <div class="radion_btn">
+                                        <input type="radio" id="f-option5" name="selector" />
+                                        <label for="f-option5">Thanh toán khi nhận hàng</label>
+                                        <div class="check"></div>
+                                   </div>
+                                   @*<div class="radion_btn">
+                                        <input type="radio" id="f-option6" name="selector" />
+                                        <label for="f-option6">Thanh toán qua Momo </label>
+                                        <img height=30px width=30px src="~/Content/img/banner/momo.jpg" alt="" />
+                                        <div class="check"></div>
+                                   </div>*@
+                              </div>
+                              <btn class="main_btn process_order" href="/">Tiến hành đặt hàng</btn>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</section>
+@section myscript{
+     <script>
+          $(document).ready(function () {
+
+               var cart = JSON.parse(localStorage.getItem("cart"));
+               $("#cart").val(localStorage.getItem("cart"));
+
+               var html = "";
+               var total = 0;
+
+               for (var i in cart) {
+                    html += `<a href="#">
+                                             ${cart[i].name}
+                                             <span class="middle">${cart[i].amount}</span>
+                                             <span class="last">${cart[i].amount * Number(cart[i].price)}</span>
+                                        </a>`
+                    total += cart[i].amount * Number(cart[i].price);
+               }
+               $(".total").html(total);
+               $(".list_product").html(html);
+
+
+               $("#province_select").change(function () {
+
+                    var id_province = $("#province_select").val();
+
+                    $.ajax({
+                         url: "/CheckOut/District?id_province=" + id_province,
+                         success: function (result) {
+                              var district = [];
+
+                              district.push("<option value=0>Quận/huyện</option >");
+                              result.map(function (val) {
+                                   district.push('<option value="' + val.Name_District + '">' + val.Name_District + '</option >');
+                              })
+                              $("#district_select").html(district);
+                         }
+                    })
+
+
+                   
+
+               })
+               $(".process_order").click(function () {
+                    if ($("#f-option5").prop("checked") == false && $("#f-option6").prop("checked") == false) {
+                         alert("Bạn vui lòng chọn hình thức thanh toán");
+                    }
+                    else {
+                         if ($("#f-option5").prop("checked") == true) { // thanh toán tiền mặt
+                              $("#send").trigger("click");
+                              localStorage.removeItem("cart");
+                         }
+                    }
+               })
+               
+
+             
+          })
+     </script>
+}
+

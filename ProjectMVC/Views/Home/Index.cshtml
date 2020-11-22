@@ -1,0 +1,72 @@
+﻿
+@{
+     ViewBag.Title = "Trang chủ";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+     var listProduct = ViewBag.listProduct as List<ProjectMVC.Models.Product>;
+}
+<section class="home_banner_area mb-40">
+     <div class="banner_inner d-flex align-items-center">
+          <div class="container">
+               <div class="banner_content row">
+                    <div class="col-lg-12">
+                         <p class="sub text-uppercase">Cửa hàng quần áo Lê Văn Phiêu_Sonexay</p>
+                         <h3>
+                              <span>
+                                   Cửa hàng đang được
+                                   <hr> mở rộng trên toàn quốc
+                              </span>
+                         </h3>
+                         <h4>Nào, cùng chúng tôi khám phá nào</h4>
+                         <a class="main_btn mt-40" href="/">Xem chi tiết</a>
+                    </div>
+               </div>
+          </div>
+     </div>
+</section>
+
+<!--================ Inspired Product Area =================-->
+<section class="inspired_product_area section_gap_bottom_custom">
+     <div class="container">
+          <div class="row justify-content-center">
+               <div class="col-lg-12">
+                    <div class="main_title">
+                         <h2><span>Khám phá sản phẩm</span></h2>
+                         <p>Mang tất cả những gì chúng tôi có để phục vụ tốt nhất cho khách hàng</p>
+                    </div>
+               </div>
+          </div>
+          <div class="row">
+               @{
+                    foreach (var item in listProduct)
+                    {
+                    <div class="col-lg-3 col-md-6">
+                         <div class="single-product">
+                              <div class="product-img">
+                                   <img class="img-fluid w-100" src="@item.Image" alt="" />
+                                   <div class="p_icon">
+                                        <a href="/Product?id=@item.ID_Product">
+                                             <i class="ti-shopping-cart"></i>
+                                        </a>
+                                   </div>
+                              </div>
+                              <div class="product-btm">
+                                   <a href="/Product?id=@item.ID_Product" class="d-block">
+                                        <h4>@item.Name_Product</h4>
+                                   </a>
+                                   <div class="mt-3">
+                                        <span class="mr-4">@item.Current_Price</span>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                         }
+                    }
+
+
+
+          </div>
+     </div>
+</section>
+

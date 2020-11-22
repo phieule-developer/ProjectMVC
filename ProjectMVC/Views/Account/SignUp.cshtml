@@ -1,0 +1,71 @@
+﻿
+@{
+     ViewBag.Title = "SignUp";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container loginnn">
+     <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+               <div class="card card-signin my-5">
+                    <div class="card-body">
+                         <h5 class="card-title text-center">ĐĂNG KÝ</h5>
+                         @if (ViewBag.error != null)
+                         {
+                         <div class="alert alert-danger">
+                              @ViewBag.error
+                         </div>
+                         }
+                          @if(ViewBag.message != null){ 
+                         <div class="alert alert-danger">
+                              @ViewBag.message
+                         </div>
+                         }
+
+
+                         <form class="form-signin" action="/Account/SignUp" method="POST">
+
+
+                              <div class="form-label-group">
+                                   <input type="text" id="inputFullName" name="Name_Member" class="form-control"
+                                          placeholder="Họ và tên" required autofocus />
+                                   <label for="inputFullName">Họ và tên</label>
+                              </div>
+
+                              <div class="form-label-group">
+                                   <input type="text" id="inputPhone" name="Phone_Member" class="form-control"
+                                          placeholder="Số điện thoại" required autofocus />
+                                   <label for="inputPhone">Số điện thoại</label>
+                              </div>
+
+                              <div class="form-label-group">
+                                   <input type="email" id="inputEmail" name="Email" class="form-control"
+                                          placeholder="Email address" required autofocus />
+                                   <label for="inputEmail">Email</label>
+                              </div>
+
+                              <div class="form-label-group">
+                                   <input type="password" id="inputPassword" name="Password" class="form-control"
+                                          placeholder="Password" required />
+                                   <label for="inputPassword">Mật khẩu</label>
+                              </div>
+
+                              <div class="form-label-group">
+                                   <input type="password" id="inputConfirmPassword" name="ConfirmPassword" class="form-control"
+                                          placeholder="Password" required />
+                                   <label for="inputConfirmPassword">Xác nhận mật khẩu</label>
+                              </div>
+                              <br class="my-4">
+                              <button class="btn btn-lg btn-primary btn-block btn-danger text-uppercase" type="submit"><i class="fa fa-registered">Đăng ký</i></button>
+
+
+                         </form>
+
+
+
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+<div>

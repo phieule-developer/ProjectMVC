@@ -1,0 +1,23 @@
+﻿using ProjectMVC.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace ProjectMVC.Areas.Admin.Controllers
+{
+    public class BaseController : Controller
+    {
+          // GET: Admin/Base
+          protected override void OnActionExecuting(ActionExecutingContext filterContext)
+          {
+               if (Xsession.Admin == null)
+               {
+                    if (Xcookie.Instance.GetAdminCookie() != null)
+                         Xsession.Member = Xcookie.Instance.GetMember();
+               }
+               base.OnActionExecuting(filterContext);
+          }
+     }
+}
