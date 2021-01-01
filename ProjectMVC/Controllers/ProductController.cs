@@ -51,6 +51,7 @@ namespace ProjectMVC.Controllers
           {
                if(Xsession.Member == null)
                {
+                 
                     return RedirectToAction("LogIn", "Account");
                }
                else

@@ -30,14 +30,9 @@ namespace ProjectMVC.Models
         [StringLength(50)]
         public string Email { get; set; }
 
-        [StringLength(50)]
-        public string Address_Province { get; set; }
+        public string Address { get; set; }
 
-        [StringLength(50)]
-        public string Address_District { get; set; }
-
-        [StringLength(250)]
-        public string Address_Detail { get; set; }
+        public DateTime? Date_Process { get; set; }
 
         public DateTime? Date_Order { get; set; }
 

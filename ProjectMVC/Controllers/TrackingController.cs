@@ -17,7 +17,7 @@ namespace ProjectMVC.Controllers
         {
                if (Xsession.Member == null)
                {
-                    
+                    Xsession.url = "Tracking";
                     return RedirectToAction("Login", "Account");
                }
                else

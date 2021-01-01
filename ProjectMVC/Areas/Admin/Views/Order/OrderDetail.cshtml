@@ -1,0 +1,54 @@
+﻿
+@{
+     ViewBag.Title = "OrderDetail";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+@{
+     var orderDetail = ViewBag.orderDetail as List<ProjectMVC.SubModels.OrderDetail>;
+     if (orderDetail.Count == 0)
+     {
+          orderDetail = new List<ProjectMVC.SubModels.OrderDetail>();
+     }
+     var stt = 0;
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Xem đơn hàng</p>
+     <div class="right__table">
+          <div class="right__tableWrapper">
+               <table>
+                    <thead>
+                         <tr>
+                              <th>STT</th>
+                              <th>Tên sản phẩm</th>
+                              <th>Kích cỡ</th>
+                              <th>Màu sắc</th>
+                              <th>Số lượng</th>
+                              <th>Gía</th>
+                              <th>Thành tiền</th>
+                         </tr>
+                    </thead>
+
+                    <tbody>
+                         @foreach (var order in orderDetail)
+                         {
+                              stt++;
+                              <tr>
+                                   <td data-label="STT">@stt</td>
+                                   <td data-label="Email">@order.NameProduct</td>
+                                   <td data-label="Số hoá đơn">@order.Size</td>
+                                   <td data-label="Tên sản phẩm">@order.Color</td>
+                                   <td data-label="Số lượng">@order.Amount</td>
+                                   <td data-label="Kích cở">@order.Price</td>
+                                   <td data-label="Kích cở">@(order.Price*order.Amount)</td>
+                              </tr>
+                         }
+
+                    </tbody>
+               </table>
+          </div>
+     </div>
+</div>
+
+
+

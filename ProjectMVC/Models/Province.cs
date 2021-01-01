@@ -9,19 +9,11 @@ namespace ProjectMVC.Models
     [Table("Province")]
     public partial class Province
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Province()
-        {
-            Districts = new HashSet<District>();
-        }
+        public int ID { get; set; }
 
-        [Key]
         public int ID_Province { get; set; }
 
         [StringLength(50)]
         public string Name_Province { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<District> Districts { get; set; }
     }
 }

@@ -45,7 +45,11 @@ namespace ProjectMVC.Controllers
                               {
                                    Xsession.Member = sub;
                               }
-                              return RedirectToAction("Index", "Home");
+                              if(Xsession.url == null)
+                         {
+                              Xsession.url = "Home";
+                         }
+                              return RedirectToAction("Index", Xsession.url);
                     }
                     else
                     {
@@ -104,7 +108,7 @@ namespace ProjectMVC.Controllers
           {
                Xsession.RemoveAdmin();
                Xsession.RemoveMember();
-               HttpContext.Session.Remove("Name");
+               Xsession.url = null;
                Xcookie.Instance.RemoveMember();
                Xcookie.Instance.RemoveAdmin();
                return RedirectToAction("Login", "Account");

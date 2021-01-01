@@ -29,6 +29,7 @@ namespace ProjectMVC.Models
           public virtual DbSet<Product> Products { get; set; }
           public virtual DbSet<Province> Provinces { get; set; }
           public virtual DbSet<SizeProduct> SizeProducts { get; set; }
+          public virtual DbSet<Ward> Wards { get; set; }
 
           protected override void OnModelCreating(DbModelBuilder modelBuilder)
           {

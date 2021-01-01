@@ -1,0 +1,66 @@
+﻿
+@{
+     ViewBag.Title = "detail";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Chi tiết sản phẩm</p>
+     <div class="right__formWrapper">
+          <form action="" method="post" enctype="multipart/form-data">
+               <div class="right__inputWrapper">
+                    <label for="title">Tiêu đề</label>
+                    <input type="text" placeholder="Tiêu đề">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="p_category">Danh mục</label>
+                    <select name="">
+                         <option disabled selected>Chọn danh mục</option>
+                         <option value="">Áo thun nam</option>
+                         <option value="">Áo sơ mi nam</option>
+                         <option value="">Áo thun nữ</option>
+                         <option value="">Áo sơ mi nữ</option>
+                    </select>
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="image">Hình ảnh 1</label>
+                    <input type="file">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="image">Hình ảnh 2</label>
+                    <input type="file">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="image">Hình ảnh 3</label>
+                    <input type="file">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="title">Giá sản phẩm</label>
+                    <input type="text" placeholder="Giá sản phẩm">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="title">Size M</label>
+                    <input type="number" value=0 placeholder="Số lượng">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="title">Size L</label>
+                    <input type="number" value=0 placeholder="Số lượng">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="title">Size XL</label>
+                    <input type="number" value=0 placeholder="Số lượng">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="title">Size XXL</label>
+                    <input type="number" value=0 placeholder="Số lượng">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="desc">Mô tả</label>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="Mô tả"></textarea>
+               </div>
+               <button class="btn" type="submit">Cập nhật</button>
+          </form>
+     </div>
+</div>
+
+

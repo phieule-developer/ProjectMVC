@@ -1,0 +1,121 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Thêm sản phẩm</p>
+     <div class="right__formWrapper">
+          <form action="/Admin/Product/Index" method="post" enctype="multipart/form-data">
+               <div class="right__inputWrapper">
+                    <label for="title">Tên sản phẩm</label>
+                    <input name="Name_Product" type="text" placeholder="Tên sản phẩm">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="p_category">Danh mục</label>
+                    <select name="ID_Category">
+                         <option disabled selected>Chọn danh mục</option>
+                         <option value=1>Áo thun nam</option>
+                         <option value=3>Áo sơ mi nam</option>
+                         <option value=7>Áo thun nữ</option>
+                         <option value=9>Áo sơ mi nữ</option>
+                    </select>
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="image1">Hình ảnh 1</label>
+                    <input name="image1" type="file">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="image2">Hình ảnh 2</label>
+                    <input name="image2" type="file">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="image3">Hình ảnh 3</label>
+                    <input name="image3" type="file">
+               </div>
+               <div class="right__inputWrapper">
+                    <label for="title">Giá sản phẩm</label>
+                    <input name="Current_Price" type="text" placeholder="Giá sản phẩm">
+               </div>
+               <label>Màu xanh</label>
+               <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped table-highlight">
+                         <thead>
+                              <tr>
+                                   <th>M</th>
+                                   <th>L</th>
+                                   <th>XL</th>
+                                   <th>XXL</th>
+
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr>
+                                   <td><input name="XanhM" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="XanhL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="XanhXL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="XanhXXL" style="width:40px" type="number" value=0 /></td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
+
+               <label>Màu đỏ</label>
+               <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped table-highlight">
+                         <thead>
+                              <tr>
+                                   <th>M</th>
+                                   <th>L</th>
+                                   <th>XL</th>
+                                   <th>XXL</th>
+
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr>
+                                   <td><input name="DoM" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="DoL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="DoXL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="DoXXL" style="width:40px" type="number" value=0 /></td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
+
+               <label>Màu trắng</label>
+               <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped table-highlight">
+                         <thead>
+                              <tr>
+                                   <th>M</th>
+                                   <th>L</th>
+                                   <th>XL</th>
+                                   <th>XXL</th>
+
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr>
+                                   <td><input name="TrangM" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="TrangL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="TrangXL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="TrangXXL" style="width:40px" type="number" value=0 /></td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
+
+               <div class="right__inputWrapper">
+                    <label for="desc">Mô tả</label>
+                    <input name="Description" id="" cols="30" rows="10" placeholder="Mô tả"/>
+               </div>
+               <button class="btn" type="submit">Thêm sản phẩm</button>
+          </form>
+     </div>
+</div>
+

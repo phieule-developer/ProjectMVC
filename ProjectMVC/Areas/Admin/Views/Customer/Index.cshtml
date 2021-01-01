@@ -1,0 +1,50 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+@{
+     var listMember = ViewBag.listMember as List<ProjectMVC.Models.Member>;
+     if(listMember.Count == 0)
+     {
+          listMember = new List<ProjectMVC.Models.Member>();
+     }
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Xem khách hàng</p>
+     <div class="right__table">
+          <div class="right__tableWrapper">
+               <table>
+                    <thead>
+                         <tr>
+                              <th>Mã khách hàng</th>
+                      
+                              <th>Tên</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Ngày tạo</th>
+                              <th>Hành động</th>
+                         </tr>
+                    </thead>
+
+                    <tbody>
+                         @foreach (var member in listMember)
+                         {
+                              <tr>
+                                   <td data-label="STT">@member.ID_Member</td>
+                                   <td data-label="Tên">@member.Name_Member</td>
+                                   <td data-label="Email">@member.Email</td>
+                                   <td data-label="Phone">@member.Phone_Member</td>
+                                   <td data-label="Địa chỉ">@member.Created_At</td>
+                                   <td data-label="Xoá" class="right__iconTable">
+                                        <a href="#"><img src="~/Areas/Admin/Content/assets/icon-edit.svg" alt=""></a>
+                                        <a href="#" class="right__iconTable"><img src="~/Areas/Admin/Content/assets/icon-x.svg" alt=""></a>
+                                   </td>
+                              </tr>
+                         }
+                    </tbody>
+               </table>
+          </div>
+     </div>
+</div>

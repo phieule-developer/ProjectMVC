@@ -44,14 +44,12 @@
                     </div>
                </div>
                <div class="col-lg-5 offset-lg-1">
-                    <div class="s_product_text">
+                    <div class="">
                          <span class="id_product" style="display:none">@product.ID_Product</span>
                          <h3 class="name_product">@product.Name_Product</h3>
                          <h2><span class="price_product"> @product.Current_Price</span><span>&emsp; VND</span></h2>
                          <ul class="list">
-                              <li>
-                                   <a href="#"> <span>Trạng thái</span> : Còn hàng</a>
-                              </li>
+
                               <li>
                                    <div data_size="" class="colorProduct">
                                         <div>Kích cỡ :</div>
@@ -68,7 +66,7 @@
                                         Màu sắc
                                         <div>
                                              <select class="color_product custom-select" style="width:30%">
-                                                  <option value="-1">Lựa chọn</option>
+                                                  <option value="-1" disabled selected>Lựa chọn</option>
                                                   <option value="Xanh">Xanh</option>
                                                   <option value="Đỏ">Đỏ</option>
                                                   <option value="Trắng">Trắng</option>
@@ -77,11 +75,8 @@
                                    </div>
                               </li>
                          </ul>
-                         <br>
-                         <br>
-                         <p>
-                              @product.Description_Product
-                         </p>
+                         <br />
+                         <br />
                          <div class="product_count">
                               <label for="qty">Số lượng:</label>
                               <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
@@ -95,6 +90,13 @@
                                    <i class="lnr lnr-chevron-down"></i>
                               </button>
                          </div>
+                         <br>
+                         <br>
+                         <p>
+                              @product.Description_Product
+                         </p>
+                         <br>
+                         <hr>
                          <div class="card_area">
                               <btn class="main_btn add_to_cart">Thêm vào giỏ hàng</btn>
                          </div>
@@ -103,8 +105,6 @@
           </div>
      </div>
 </div>
-<!--================End Single Product Area =================-->
-<!--================Product Description Area =================-->
 <section class="product_description_area">
      <div class="container">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -130,7 +130,6 @@
                          Qúa tuyệt vời nhá
                     </p>
                </div>
-
                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="row">
                          <div class="col-lg-6">
@@ -157,7 +156,6 @@
 
                                    }
                               }
-
                               else
                               {
                                    <div class="col-lg-6">
@@ -165,10 +163,7 @@
                                    </div>
 
                               }
-
                          </div>
-
-
                          <div class="col-lg-6">
                               <div class="review_box">
                                    <br />
@@ -194,7 +189,6 @@
                                    </form>
                               </div>
                          </div>
-
                     </div>
                </div>
           </div>
@@ -211,9 +205,9 @@
                     $(".colorProduct").attr("data_size", $(this).html())
                })
                $(".add_to_cart").click(function () { // thêm vào giỏ hàng
-
-                    if ($(".colorProduct").attr("data_size") == "" || $(".color_product").val() == "-1") {
-                         alert("Bạn vui lòng chọn màu sắc và sản phẩm");
+                   
+                    if ($(".colorProduct").attr("data_size") == "" || $(".color_product").val() == null) {
+                         toastr.warning("Bạn vui lòng chọn màu sắc và sản phẩm");
                     }
                     else {
 
@@ -234,16 +228,15 @@
                                    amountCheck += cc[i].amount;
                               }
                          }
-                        
                          $.ajax({
                               url: "/Product/CheckAmount?id=" + id + "&size=" + size + "&color=" + color + "&amount=" + amountCheck,
                               type: "GET",
                               success: function (data) {
                                    if (data == false) {
-                                        alert("Số lượng bạn mua hiện tại đã lớn hơn số lượng hàng trong kho");
+                                        toastr.info('Số lượng bạn mua hiện tại đã lớn hơn số lượng hàng trong kho ^^^');
                                    }
                                    else {
-                                         toastr.info('Thêm vào giỏ hàng thành công ^^^')
+                                        toastr.success('Thêm vào giỏ hàng thành công ^^^');
                                         var data = {
                                              id: id,
                                              name: name,

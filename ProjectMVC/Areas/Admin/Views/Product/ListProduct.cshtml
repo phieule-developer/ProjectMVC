@@ -1,0 +1,53 @@
+﻿
+@{
+     ViewBag.Title = "ListProduct";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+
+@{
+     var listProduct = ViewBag.listProduct as List<ProjectMVC.Models.Product>;
+     if(listProduct.Count == 0)
+     {
+          listProduct =new List<ProjectMVC.Models.Product>();
+     }
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Xem sản phẩm</p>
+     <div class="right__table">
+          <div class="right__tableWrapper">
+               <table>
+                    <thead>
+                         <tr>
+                              <th>Mã sản phẩm</th>
+                              <th>Tên sản phẩm</th>
+                              <th>Hình ảnh</th>
+                              <th>Giá SP</th>
+                              <th>Thời gian</th>
+                              <th>Hành động</th>
+                         </tr>
+                    </thead>
+
+                    <tbody>
+                         @foreach (var p in listProduct)
+                         {
+                         <tr>
+                              <td data-label="STT">@p.ID_Product</td>
+                              <td data-label="Tên sản phẩm">@p.Name_Product</td>
+                              <td data-label="Hình ảnh"><img src="@p.Image" alt=""></td>
+                              <td data-label="Giá SP">@p.Current_Price ₫</td>
+                              <td data-label="Thời gian">@p.Date_Post</td>
+                              <td data-label="Xoá" class="right__iconTable">
+                                   <a href="/Admin/Product/UpdateProduct?id=@p.ID_Product"><img src="~/Areas/Admin/Content/assets/icon-edit.svg" alt=""></a>
+                                   <a href="/Admin/Product/delete?id=@p.ID_Product" class="right__iconTable"><img src="~/Areas/Admin/Content/assets/icon-x.svg" alt=""></a>
+                              </td>
+                         </tr>
+                         }
+
+
+                    </tbody>
+               </table>
+          </div>
+     </div>
+</div>
+

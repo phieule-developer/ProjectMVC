@@ -9,14 +9,13 @@ namespace ProjectMVC.Models
     [Table("District")]
     public partial class District
     {
-        [Key]
+        public int ID { get; set; }
+
         public int ID_District { get; set; }
 
         [StringLength(50)]
         public string Name_District { get; set; }
 
         public int? ID_Province { get; set; }
-
-        public virtual Province Province { get; set; }
     }
 }

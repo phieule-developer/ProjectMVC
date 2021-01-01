@@ -1,0 +1,102 @@
+﻿
+@{
+     ViewBag.Title = "Success";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+     var detailOrder = ViewBag.detailOrder as List<ProjectMVC.SubModels.Product>;
+     var order = ViewBag.order as List<ProjectMVC.Models.Order>;
+     string payment;
+     if (order[0].Status == 1)
+     {
+          payment = "Thanh toán khi nhận hàng";
+     }
+     else
+     {
+          payment = "Thanh toán qua Momo";
+     }
+}
+<br />
+<br />
+<br />
+<section class="order_details p_120">
+     <div class="container">
+          <h3 class="title_confirmation" style="color:red">@ViewBag.message</h3>
+          <br />
+          <br />
+          <div class="row order_d_inner">
+               <div class="col-lg-6">
+                    <div class="details_item">
+                         <h4>Thông tin đơn hàng</h4>
+
+                         <ul class="list">
+                              <li><p href="#"><span>Mã đặt hàng :</span>@order[0].ID_Order</p></li>
+                              <li><p href="#"><span>Thời gian :</span> @order[0].Date_Order</p></li>
+                              <li><p href="#"><span>Hình thức thanh toán: </span>@payment</p></li>
+                         </ul>
+                    </div>
+               </div>
+               <div class="col-lg-6">
+                    <div class="details_item">
+                         <h4>Hóa đơn địa chỉ</h4>
+                         <ul class="list">
+                              <li><p href="#"><span>Số điện thoại: </span>@order[0].Phone</p></li>
+                              <li><p href="#"><span>Email: </span>@order[0].Email</p></li>
+                              <li><p href="#"><span>Địa chỉ:</span> @order[0].Address</p></li>
+                         </ul>
+                    </div>
+               </div>
+
+          </div>
+          <br />
+          <br />
+          <div class="order_details_table">
+               <h2>Chi tiết đơn hàng</h2>
+               <br />
+               <div class="table-responsive">
+                    <table class="table">
+                         <thead>
+                              <tr>
+                                   <th scope="col">Sản phẩm</th>
+                                   <th scope="col">Kích thước</th>
+                                   <th scope="col">Màu sắc</th>
+                                   <th scope="col">Số lượng</th>
+                                   <th scope="col">Giá</th>
+                                   <th scope="col">Thành tiền</th>
+                              </tr>
+                         </thead>
+                         <tbody class="bodyy">
+                              @foreach (var item in detailOrder)
+                              {
+                                   <tr>
+                                        <td>
+                                             <p>@item.Name_Product</p>
+                                        </td>
+                                        <td>
+                                             <p>@item.Size</p>
+                                        </td>
+                                        <td>
+                                             <p>@item.Color</p>
+                                        </td>
+                                        <td>
+                                             <p>@item.Amount</p>
+                                        </td>
+                                        <td>
+                                             <p>@item.Current_Price</p>
+                                        </td>
+                                        <td>
+                                             <p>@(item.Current_Price * item.Amount)</p>
+                                        </td>
+                                   </tr>
+                              }
+
+                         </tbody>
+                    </table>
+                    <a href="/Home/Index" class="btn btn-danger" style="float:right">Trang chủ</a>
+                    <br />
+                    <br />
+               </div>
+          </div>
+     </div>
+</section>

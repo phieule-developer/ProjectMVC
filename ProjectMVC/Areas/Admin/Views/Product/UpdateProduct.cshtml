@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "UpdateProduct";
+    Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+@{ 
+     var product = ViewBag.product as ProjectMVC.Models.Product;
+     var listSize = ViewBag.listSize as List<ProjectMVC.Models.Detail_Product>;
+}
+     <div class="right__content">
+          <div class="right__title">Bảng điều khiển</div>
+          <p class="right__desc">Thêm sản phẩm</p>
+          <div class="right__formWrapper">
+               <form action="/Admin/Product/Index" method="post" enctype="multipart/form-data">
+                    <div class="right__inputWrapper">
+                         <label for="title">Tên sản phẩm</label>
+                         <input name="Name_Product" type="text" value="@product.Name_Product" placeholder="Tên sản phẩm">
+                    </div>
+                    <div class="right__inputWrapper">
+                         <label for="p_category">Danh mục</label>
+                         <select name="ID_Category">
+                              @if (product.ID_Category == 1)
+                              {
+                                   <option value=1>Áo thun nam</option>
+                              }
+                              else if (product.ID_Category == 3)
+                              {
+                                   <option value=3>Áo sơ mi nam</option>
+                              }
+                              else if (product.ID_Category == 7)
+                              {
+                                   <option value=7>Áo thun nữ</option>
+                              }
+                              else if (product.ID_Category == 9)
+                              {
+                                   <option value=9>Áo sơ mi nữ</option>
+                              }
+                         </select>
+                    </div>
+                    <div class="right__inputWrapper">
+                         <label for="title">Giá sản phẩm</label>
+                         <input name="Current_Price" value="@product.Current_Price" type="text" placeholder="Giá sản phẩm">
+                    </div>
+                    <div style="display:none" class="right__inputWrapper">
+                         <label for="title">Giá sản phẩm</label>
+                         <input name="ID_Product" value="@product.ID_Product" type="text" placeholder="Giá sản phẩm">
+                    </div>
+                    <label>Màu xanh</label>
+                    <div class="table-responsive">
+
+                         <table class="table table-bordered table-striped table-highlight">
+                              <thead>
+                                   <tr>
+                                        <th>M</th>
+                                        <th>L</th>
+                                        <th>XL</th>
+                                        <th>XXL</th>
+
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <tr>
+                                        <td><input name="XanhM" style="width:40px" type="number" value=@listSize[0].Amount /></td>
+                                        <td><input name="XanhL" style="width:40px" type="number" value=@listSize[1].Amount /></td>
+                                        <td><input name="XanhXL" style="width:40px" type="number" value=@listSize[2].Amount /></td>
+                                        <td><input name="XanhXXL" style="width:40px" type="number" value=@listSize[3].Amount /></td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
+
+                    <label>Màu đỏ</label>
+                    <div class="table-responsive">
+
+                         <table class="table table-bordered table-striped table-highlight">
+                              <thead>
+                                   <tr>
+                                        <th>M</th>
+                                        <th>L</th>
+                                        <th>XL</th>
+                                        <th>XXL</th>
+
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <tr>
+                                        <td><input name="DoM" style="width:40px" type="number" value=@listSize[4].Amount /></td>
+                                        <td><input name="DoL" style="width:40px" type="number" value=@listSize[5].Amount /></td>
+                                        <td><input name="DoXL" style="width:40px" type="number" value=@listSize[6].Amount /></td>
+                                        <td><input name="DoXXL" style="width:40px" type="number" value=@listSize[7].Amount /></td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
+
+                    <label>Màu trắng</label>
+                    <div class="table-responsive">
+
+                         <table class="table table-bordered table-striped table-highlight">
+                              <thead>
+                                   <tr>
+                                        <th>M</th>
+                                        <th>L</th>
+                                        <th>XL</th>
+                                        <th>XXL</th>
+
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <tr>
+                                        <td><input name="TrangM" style="width:40px" type="number" value=@listSize[8].Amount /></td>
+                                        <td><input name="TrangL" style="width:40px" type="number" value=@listSize[9].Amount /></td>
+                                        <td><input name="TrangXL" style="width:40px" type="number" value=@listSize[10].Amount /></td>
+                                        <td><input name="TrangXXL" style="width:40px" type="number" value=@listSize[11].Amount /></td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                    </div>
+
+                    <div class="right__inputWrapper">
+                         <label for="desc">Mô tả</label>
+                         <input name="Description" id="" value="@product.Description_Product" cols="30" rows="10" placeholder="Mô tả" />
+                    </div>
+                    <button class="btn" type="submit">Cập nhật</button>
+               </form>
+          </div>
+     </div>
+

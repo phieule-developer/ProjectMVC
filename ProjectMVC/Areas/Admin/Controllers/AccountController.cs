@@ -10,13 +10,17 @@ using ProjectMVC.Utils;
 
 namespace ProjectMVC.Areas.Admin.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
           DatabaseContext db = new DatabaseContext();
           // GET: Admin/Account
           public ActionResult Login()
         {
-            return View();
+               if(Xsession.Admin != null || Xcookie.Instance.GetAdminCookie() != null)
+               {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+               }
+                    return View();
         }
           [HttpPost]
           public ActionResult LogIn(Models.Admin me, string checkBox)

@@ -35,7 +35,17 @@ namespace ProjectMVC.Utils
                     HttpContext.Current.Session["Admin"] = value;
                }
           }
-
+          public static string url
+          {
+               get
+               {
+                    return HttpContext.Current.Session["controller"] as string;
+               }
+               set
+               {
+                    HttpContext.Current.Session["controller"] = value;
+               }
+          }
           public static void RemoveAdmin()
           {
                HttpContext.Current.Session.Remove("Admin");

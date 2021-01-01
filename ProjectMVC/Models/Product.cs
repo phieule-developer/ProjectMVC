@@ -36,6 +36,8 @@ namespace ProjectMVC.Models
 
         public DateTime? Date_Post { get; set; }
 
+        public int? status { get; set; }
+
         public int? ID_Category { get; set; }
 
         public virtual Category Category { get; set; }

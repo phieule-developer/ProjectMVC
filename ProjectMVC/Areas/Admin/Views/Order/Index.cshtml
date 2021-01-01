@@ -1,0 +1,96 @@
+﻿
+@{
+     ViewBag.Title = "Index";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+@{
+     var listOrder = ViewBag.listOrder as List<ProjectMVC.Models.Order>;
+     if (listOrder.Count == 0)
+     {
+          listOrder = new List<ProjectMVC.Models.Order>();
+     }
+     var stt = 0;
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Xem đơn hàng</p>
+     <div class="right__table">
+          <div class="right__tableWrapper">
+               <table>
+                    <thead>
+                         <tr>
+                              <th>STT</th>
+                              <th>Họ tên</th>
+                              <th>Email</th>
+                              <th>Số điện thoại</th>
+                              <th>Địa chỉ nhận hàng</th>
+                              <th>Ngày đặt</th>
+                              <th>Ngày xử lý</th>
+                              <th>Trạng thái</th>
+                              <th>Hành động</th>
+                         </tr>
+                    </thead>
+
+                    <tbody>
+                         @foreach (var order in listOrder)
+                         {
+                              stt++;
+                         <tr>
+                              <td data-label="STT">@stt</td>
+                              <td data-label="Email">@order.Name</td>
+                              <td data-label="Số hoá đơn">@order.Email</td>
+                              <td data-label="Tên sản phẩm">@order.Phone</td>
+                              <td data-label="Số lượng">@order.Address</td>
+                              <td data-label="Kích cở">@order.Date_Order</td>
+                              @if (order.Status == 0)
+                              {
+                                   <td data-label="Kích cở">0</td>
+                              }
+                              else
+                              {
+                                   <td data-label="Kích cở">@order.Date_Process</td>
+                              }
+                              @*// status = 0 : Yêu cầu chờ thanh toán
+          // = 1 : Thanh toán tiền mặt
+          // = 2 : Thanh toán thành công
+          // = 3 : Thanh toán thất bại*@
+                              @if (order.Status == 0)
+                              {
+                                   <td data-label="Ngày">Đang chờ thanh toán online</td>
+                              }
+                              else if (order.Status == 2)
+                              {
+                                   <td data-label="Ngày">Đã thanh toán Momo</td>
+                              }
+                              else if (order.Status == 1)
+                              {
+                                   <td data-label="Ngày">Đã xử lý</td>
+                              }
+                              else if (order.Status == 4)
+                              {
+                                   <td data-label="Ngày">Chưa xử xử lý</td>
+                              }
+                              else if (order.Status == -1)
+                              {
+                                   <td data-label="Ngày">Đã hủy</td>
+                              }
+                              else
+                              {
+                                   <td data-label="Ngày">Thanh toán online thất bại</td>
+                              }
+                              <td data-label="Hành động" class="right__iconTable">
+                                   @if (order.Status == 4)
+                                   {
+                                        <a href="/Admin/Order/Accept?id=@order.ID_Order" class="right__iconTable"><img src="~/Areas/Admin/Content/assets/icon-check.svg" alt=""></a>
+                                   }
+                                   <a href="/Admin/Order/OrderDetail?id=@order.ID_Order"><img src="~/Areas/Admin/Content/assets/icon-pencil.svg" alt=""></a>
+                              </td>
+                         </tr>
+                         }
+
+                    </tbody>
+               </table>
+          </div>
+     </div>
+</div>
+
