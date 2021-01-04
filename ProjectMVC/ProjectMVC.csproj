@@ -388,6 +388,7 @@
     <Content Include="Areas\Admin\Views\Order\OrderDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Product\detail.cshtml" />
     <Content Include="Areas\Admin\Views\Product\UpdateProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Import.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

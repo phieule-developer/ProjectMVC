@@ -16,7 +16,14 @@ namespace ProjectMVC.Controllers
           DatabaseContext db = new DatabaseContext();
         public ActionResult Login()
         {
-            return View();
+               if (Xsession.Member != null || Xcookie.Instance.GetMember() != null)
+               {
+                    return RedirectToAction("Index", "Home");
+               }
+               else
+               {
+                    return View();
+               }
         }
           [HttpPost]
           [Obsolete]

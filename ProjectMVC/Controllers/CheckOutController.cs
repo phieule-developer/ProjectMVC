@@ -75,40 +75,49 @@ namespace ProjectMVC.Controllers
                               i.ID_Order = me.ID_Order;
                               total += decimal.Parse(i.Price.ToString())*decimal.Parse(i.Amount.ToString());
                               db.Order_Detail.Add(i);
-                              int SIZE_ID = 0;
-                              int Color_ID = 0;
-                              if(i.Size == "M")
-                              {
-                                   SIZE_ID = 5;
-                              }
-                              else if(i.Size =="L")
-                              {
-                                   SIZE_ID = 6;
-                              }else if(i.Size == "XL")
-                              {
-                                   SIZE_ID = 7;
-                              }
-                              else
-                              {
-                                   SIZE_ID = 8;
-                              }
-                              if(i.Color == "Đỏ")
-                              {
-                                   Color_ID = 1;
-                              }else if(i.Color == "Xanh")
-                              {
-                                   Color_ID = 2;
-                              }else
-                              {
-                                   Color_ID = 2;
-                              }
-                              var detail = db.Detail_Product.Where(p => p.ID_Product == i.Id && p.Size_Product == SIZE_ID && p.Color_Name == Color_ID).FirstOrDefault();
-                              detail.Amount -= i.Amount;
                               db.SaveChanges();
                          }
 
                          if (Payment == 1)
                          {
+                              foreach (var i in list)
+                              {
+                                   i.ID_Order = me.ID_Order;
+                                   
+                                   int SIZE_ID = 0;
+                                   int Color_ID = 0;
+                                   if (i.Size == "M")
+                                   {
+                                        SIZE_ID = 5;
+                                   }
+                                   else if (i.Size == "L")
+                                   {
+                                        SIZE_ID = 6;
+                                   }
+                                   else if (i.Size == "XL")
+                                   {
+                                        SIZE_ID = 7;
+                                   }
+                                   else
+                                   {
+                                        SIZE_ID = 8;
+                                   }
+                                   if (i.Color == "Đỏ")
+                                   {
+                                        Color_ID = 1;
+                                   }
+                                   else if (i.Color == "Xanh")
+                                   {
+                                        Color_ID = 2;
+                                   }
+                                   else
+                                   {
+                                        Color_ID = 2;
+                                   }
+                                   var detail = db.Detail_Product.Where(p => p.ID_Product == i.Id && p.Size_Product == SIZE_ID && p.Color_Name == Color_ID).FirstOrDefault();
+                                   detail.Amount -= i.Amount;
+                                   db.SaveChanges();
+                              }
                               return RedirectToAction("Detail_Order", new { id_order = me.ID_Order });
                          }
                          else
@@ -351,6 +360,42 @@ namespace ProjectMVC.Controllers
                     var order = db.Orders.Where(o => o.ID_Order == id_order).FirstOrDefault();
                     if (order.Status == 0)
                     {
+                         var detail_order = db.Order_Detail.Where(p => p.ID_Order == id_order).ToList();
+
+                         foreach(var de in detail_order)
+                         {
+                              int ID_Size=0,ID_Color=0;
+                              if (de.Size == "M")
+                              {
+                                   ID_Size = 5;
+                              }
+                              else if (de.Size == "L")
+                              {
+                                   ID_Size = 6;
+                              }
+                              else if (de.Size == "XL")
+                              {
+                                   ID_Size = 8;
+                              }
+                              else if (de.Size == "XXL")
+                              {
+                                   ID_Size = 7;
+                              }
+                              if(de.Color == "Đỏ")
+                              {
+                                   ID_Color = 1;
+                              }else if (de.Color == "Xanh")
+                              {
+                                   ID_Color = 2;
+                              }
+                              else if (de.Color == "Trắng")
+                              {
+                                   ID_Color = 3;
+                              }
+                              var detail = db.Detail_Product.Where(p => p.ID_Product == de.Id && p.Color_Name == ID_Color && p.Size_Product == ID_Size).FirstOrDefault();
+                              detail.Amount -= de.Amount;
+                              db.SaveChanges();
+                         }
                          order.Status = 2;
                          db.SaveChanges();
                     }

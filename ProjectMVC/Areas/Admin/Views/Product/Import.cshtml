@@ -1,0 +1,89 @@
+﻿
+@{
+     ViewBag.Title = "Import";
+     Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+@{
+     var product = ViewBag.product as ProjectMVC.Models.Product;
+}
+<div class="right__content">
+     <div class="right__title">Bảng điều khiển</div>
+     <p class="right__desc">Thêm vào kho</p>
+     <div class="right__formWrapper">
+          <form action="/Admin/Product/Import" method="post" enctype="multipart/form-data">
+               <div style="display:none" class="right__inputWrapper">
+                    <label for="title"></label>
+                    <input name="ID_Product" type="text" value="@product.ID_Product" placeholder="">
+               </div>
+               <label>Màu đỏ</label>
+               <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-highlight">
+                         <thead>
+                              <tr>
+                                   <th>M</th>
+                                   <th>L</th>
+                                   <th>XL</th>
+                                   <th>XXL</th>
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr>
+                                   <td><input name="DoM" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="DoL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="DoXL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="DoXXL" style="width:40px" type="number" value=0 /></td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
+               <label>Màu xanh</label>
+               <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-highlight">
+                         <thead>
+                              <tr>
+                                   <th>M</th>
+                                   <th>L</th>
+                                   <th>XL</th>
+                                   <th>XXL</th>
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr>
+                                   <td><input name="XanhM" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="XanhL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="XanhXL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="XanhXXL" style="width:40px" type="number" value=0 /></td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
+               <label>Màu trắng</label>
+               <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-highlight">
+                         <thead>
+                              <tr>
+                                   <th>M</th>
+                                   <th>L</th>
+                                   <th>XL</th>
+                                   <th>XXL</th>
+
+                              </tr>
+                         </thead>
+                         <tbody>
+                              <tr>
+                                   <td><input name="TrangM" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="TrangL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="TrangXL" style="width:40px" type="number" value=0 /></td>
+                                   <td><input name="TrangXXL" style="width:40px" type="number" value=0 /></td>
+                              </tr>
+                         </tbody>
+                    </table>
+               </div>
+               <button class="btn" type="submit">Thêm</button>
+          </form>
+     </div>
+</div>
+
+
+
+
