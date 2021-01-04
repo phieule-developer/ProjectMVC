@@ -25,8 +25,8 @@
                               <div class="left__logo">LOGO</div>
                               <div class="left__profile">
                                    <div class="left__image"><img src="~/Areas/Admin/Content/assets/profile.jpg" alt=""></div>
-                                   <p class="left__name">Lê Văn Phiêu</p>
-                                 @*  <p class="left__name">@ProjectMVC.Utils.Xsession.Admin.Name_Admin</p>*@
+                                   @*<p class="left__name">Lê Văn Phiêu</p>*@
+                                   <p class="left__name">@ProjectMVC.Utils.Xsession.Admin.Name_Admin</p>
                               </div>
                               <ul class="left__menu">
                                    <li class="left__menuItem">
@@ -39,7 +39,6 @@
                                              <a class="left__link" href="/Admin/Product/ListProduct">Xem tất cả</a>
                                         </div>
                                    </li>
-                       
                                    <li class="left__menuItem">
                                         <a href="/Admin/Customer/Index" class="left__title"><img src="~/Areas/Admin/Content/assets/icon-users.svg" alt="">Khách Hàng</a>
                                    </li>
@@ -47,7 +46,7 @@
                                         <a href="/Admin/Order/Index" class="left__title"><img src="~/Areas/Admin/Content/assets/icon-book.svg" alt="">Đơn Đặt Hàng</a>
                                    </li>
                                    <li class="left__menuItem">
-                                        <a href="#" class="left__title"><img src="~/Areas/Admin/Content/assets/icon-logout.svg" alt="">Đăng Xuất</a>
+                                        <a href="/Account/LogOut" class="left__title"><img src="~/Areas/Admin/Content/assets/icon-logout.svg" alt="">Đăng Xuất</a>
                                    </li>
                               </ul>
                          </div>

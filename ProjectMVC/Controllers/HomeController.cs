@@ -45,7 +45,7 @@ namespace ProjectMVC.Controllers
                //          }
                //     }    
                //}
-               var product = db.Products.Take(12).ToList();
+               var product = db.Products.Where(p=>p.status != -1).Take(12).ToList();
                ViewBag.listProduct = product;
                return View();
         }

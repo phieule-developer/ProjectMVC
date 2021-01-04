@@ -75,8 +75,38 @@ namespace ProjectMVC.Controllers
                               i.ID_Order = me.ID_Order;
                               total += decimal.Parse(i.Price.ToString())*decimal.Parse(i.Amount.ToString());
                               db.Order_Detail.Add(i);
+                              int SIZE_ID = 0;
+                              int Color_ID = 0;
+                              if(i.Size == "M")
+                              {
+                                   SIZE_ID = 5;
+                              }
+                              else if(i.Size =="L")
+                              {
+                                   SIZE_ID = 6;
+                              }else if(i.Size == "XL")
+                              {
+                                   SIZE_ID = 7;
+                              }
+                              else
+                              {
+                                   SIZE_ID = 8;
+                              }
+                              if(i.Color == "Đỏ")
+                              {
+                                   Color_ID = 1;
+                              }else if(i.Color == "Xanh")
+                              {
+                                   Color_ID = 2;
+                              }else
+                              {
+                                   Color_ID = 2;
+                              }
+                              var detail = db.Detail_Product.Where(p => p.ID_Product == i.Id && p.Size_Product == SIZE_ID && p.Color_Name == Color_ID).FirstOrDefault();
+                              detail.Amount -= i.Amount;
                               db.SaveChanges();
                          }
+
                          if (Payment == 1)
                          {
                               return RedirectToAction("Detail_Order", new { id_order = me.ID_Order });

@@ -1,10 +1,12 @@
-﻿using ProjectMVC.Models;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Google.Apis.Sheets.v4.Data;
+using ProjectMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using Excel = Microsoft.Office.Interop.Excel; 
 namespace ProjectMVC.Areas.Admin.Controllers
 {
     public class ProductController : Controller
@@ -185,9 +187,87 @@ namespace ProjectMVC.Areas.Admin.Controllers
                return View();
           }
           [HttpPost]
-          public ActionResult UpdateProduct(Product pt)
+          public ActionResult UpdateProduct(Product pt, int XanhM, int XanhL, int XanhXL, int XanhXXL, int DoM, int DoL, int DoXL, int DoXXL, int TrangM, int TrangL, int TrangXL, int TrangXXL)
           {
-               return RedirectToAction("UpdateProduct","Product",new {  area ="Admin", id=pt.ID_Product });
+               try
+               {
+                    var product = db.Products.Where(p => p.ID_Product == pt.ID_Product).FirstOrDefault();
+                    product.Name_Product = pt.Name_Product;
+                    product.Description_Product = pt.Description_Product;
+                    product.Current_Price = pt.Current_Price;
+
+                    var detail_product= new Detail_Product();
+                    
+                    var colors = db.Colors.ToList();
+                    var sizes = db.SizeProducts.ToList();
+                         foreach(var co in colors)
+                         {
+                              foreach(var si in sizes)
+                              {
+                              detail_product = db.Detail_Product.Where(p => p.ID_Product == pt.ID_Product && p.Color_Name == co.ID_Color && p.Size_Product == si.ID_Size).FirstOrDefault();
+                              if (si.Size_Product == "M" && co.Name_Color == "Đỏ")
+                                   {
+                                        
+                                        detail_product.Amount = DoM;
+                                  
+                              }
+                                   else if (si.Size_Product == "M" && co.Name_Color == "Xanh")
+                                   {
+                            
+                                        detail_product.Amount = XanhM;
+                                 
+                              }
+                                   else if (si.Size_Product == "M" && co.Name_Color == "Trắng")
+                                   {
+                                        detail_product.Amount = TrangM;
+                              }
+                                   else if (si.Size_Product == "L" && co.Name_Color == "Đỏ")
+                                   {
+                                        detail_product.Amount = DoL;
+                              }
+                                   else if (si.Size_Product == "L" && co.Name_Color == "Xanh")
+                                   {
+                                        detail_product.Amount = XanhL;
+                              }
+                                   else if (si.Size_Product == "L" && co.Name_Color == "Trắng")
+                                   {
+                                        detail_product.Amount = TrangL;
+                              }
+                                   else if (si.Size_Product == "XL" && co.Name_Color == "Đỏ")
+                                   {
+                                        detail_product.Amount = DoXL;
+                              }
+                                   else if (si.Size_Product == "XL" && co.Name_Color == "Xanh")
+                                   {
+                                        detail_product.Amount = XanhXL;
+                              }
+                                   else if (si.Size_Product == "XL" && co.Name_Color == "Trắng")
+                                   {
+                                        detail_product.Amount = TrangXL;
+                              }
+                                   else if (si.Size_Product == "XXL" && co.Name_Color == "Đỏ")
+                                   {
+                                        detail_product.Amount = DoXXL;
+                              }
+                                   else if (si.Size_Product == "XXL" && co.Name_Color == "Xanh")
+                                   {
+                                        detail_product.Amount = XanhXXL;
+                              }
+                                   else if (si.Size_Product == "XXL" && co.Name_Color == "Trắng")
+                                   {
+                                        detail_product.Amount = TrangXXL;
+                              }
+                              db.SaveChanges();    
+                         }
+                    }
+                    return RedirectToAction("UpdateProduct", "Product", new { area = "Admin", id = pt.ID_Product });
+               }
+               catch (Exception e)
+               {
+
+                    return RedirectToAction("UpdateProduct", "Product", new { area = "Admin", id = pt.ID_Product });
+               }
+               
           }
           public ActionResult delete(int id)
           {
@@ -217,6 +297,12 @@ namespace ProjectMVC.Areas.Admin.Controllers
                     return RedirectToAction("ListProduct");
                }
           }
+          public ActionResult Import(int id)
+          {
+
+               return View();
+          }
+          
 
      }
 }
